@@ -54,7 +54,7 @@ namespace FlySightViewer
             int hour = int.Parse(aDate.Substring(11, 2));
             int minute = int.Parse(aDate.Substring(14, 2));
             int second = int.Parse(aDate.Substring(17, 2));
-            int ms = int.Parse(aDate.Substring(20, 2));
+            int ms = int.Parse(aDate.Substring(20, 2)) * 10;
             return new DateTime(year, month, day, hour, minute, second, ms, DateTimeKind.Utc);
         }
 

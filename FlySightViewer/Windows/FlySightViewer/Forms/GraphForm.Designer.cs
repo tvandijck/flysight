@@ -30,7 +30,6 @@
         {
             this.mImperial = new System.Windows.Forms.RadioButton();
             this.mMetric = new System.Windows.Forms.RadioButton();
-            this.mAltitudeGraph = new FlySightViewer.Controls.Graph();
             this.mGraphMode = new System.Windows.Forms.ComboBox();
             this.mGraph = new FlySightViewer.Controls.Graph();
             this.SuspendLayout();
@@ -59,21 +58,6 @@
             this.mMetric.UseVisualStyleBackColor = true;
             this.mMetric.CheckedChanged += new System.EventHandler(this.OnUnitCheckedChanged);
             // 
-            // mAltitudeGraph
-            // 
-            this.mAltitudeGraph.AllowSelect = true;
-            this.mAltitudeGraph.BackColor = System.Drawing.Color.Lavender;
-            this.mAltitudeGraph.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.mAltitudeGraph.Location = new System.Drawing.Point(0, 338);
-            this.mAltitudeGraph.LogEntry = null;
-            this.mAltitudeGraph.Mode = FlySightViewer.Controls.Graph.DisplayMode.Altitude;
-            this.mAltitudeGraph.Name = "mAltitudeGraph";
-            this.mAltitudeGraph.ShowUnits = false;
-            this.mAltitudeGraph.Size = new System.Drawing.Size(629, 61);
-            this.mAltitudeGraph.TabIndex = 7;
-            this.mAltitudeGraph.Unit = FlySightViewer.Controls.Graph.Units.Metric;
-            this.mAltitudeGraph.SelectChanged += new System.EventHandler(this.OnRangeSelectChanged);
-            // 
             // mGraphMode
             // 
             this.mGraphMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -86,17 +70,15 @@
             // 
             // mGraph
             // 
-            this.mGraph.AllowSelect = false;
             this.mGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.mGraph.BackColor = System.Drawing.Color.Lavender;
+            this.mGraph.BackColor = System.Drawing.Color.Transparent;
             this.mGraph.Location = new System.Drawing.Point(0, 30);
             this.mGraph.LogEntry = null;
             this.mGraph.Mode = FlySightViewer.Controls.Graph.DisplayMode.Altitude;
             this.mGraph.Name = "mGraph";
-            this.mGraph.ShowUnits = true;
-            this.mGraph.Size = new System.Drawing.Size(629, 302);
+            this.mGraph.Size = new System.Drawing.Size(629, 368);
             this.mGraph.TabIndex = 5;
             this.mGraph.Unit = FlySightViewer.Controls.Graph.Units.Metric;
             // 
@@ -107,7 +89,6 @@
             this.ClientSize = new System.Drawing.Size(629, 399);
             this.Controls.Add(this.mImperial);
             this.Controls.Add(this.mMetric);
-            this.Controls.Add(this.mAltitudeGraph);
             this.Controls.Add(this.mGraphMode);
             this.Controls.Add(this.mGraph);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -123,7 +104,6 @@
 
         private System.Windows.Forms.RadioButton mImperial;
         private System.Windows.Forms.RadioButton mMetric;
-        private FlySightViewer.Controls.Graph mAltitudeGraph;
         private System.Windows.Forms.ComboBox mGraphMode;
         private FlySightViewer.Controls.Graph mGraph;
     }

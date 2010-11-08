@@ -1,4 +1,5 @@
-﻿namespace FlySightViewer.Forms
+﻿using FlySightViewer.Controls;
+namespace FlySightViewer.Forms
 {
     partial class DataForm
     {
@@ -28,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mRawData = new System.Windows.Forms.DataGridView();
+            this.mRawData = new FlySightViewer.Controls.BatchedDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.mRawData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -38,11 +39,14 @@
             this.mRawData.AllowUserToOrderColumns = true;
             this.mRawData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mRawData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mRawData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.mRawData.Location = new System.Drawing.Point(0, 0);
             this.mRawData.Name = "mRawData";
             this.mRawData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.mRawData.Size = new System.Drawing.Size(601, 423);
             this.mRawData.TabIndex = 1;
+            this.mRawData.RowsDeleted += new System.EventHandler(this.mRawData_RowsDeleted);
+            this.mRawData.SelectionChanged += new System.EventHandler(this.mRawData_SelectionChanged);
             // 
             // DataForm
             // 
@@ -61,6 +65,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView mRawData;
+        private BatchedDataGridView mRawData;
     }
 }

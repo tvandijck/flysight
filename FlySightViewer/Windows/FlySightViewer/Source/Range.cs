@@ -25,6 +25,11 @@ namespace FlySightViewer
             get { return Min < Max; }
         }
 
+        public bool IsInRange(int aValue)
+        {
+            return (aValue >= Min) && (aValue < Max);
+        }
+
         public static bool operator ==(Range a, Range b)
         {
             return a.Min == b.Min && a.Max == b.Max;

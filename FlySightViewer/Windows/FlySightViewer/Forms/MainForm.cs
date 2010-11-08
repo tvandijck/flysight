@@ -31,10 +31,11 @@ namespace FlySightViewer.Forms
             Project.ProjectDirtyChanged += new EventHandler(UpdateTitleBar);
             Project.ProjectNameChanged += new EventHandler(UpdateTitleBar);
 
-            // monitor range selection.
+            // monitor some events.
             mGraphForm.DisplayRangeChanged += new EventHandler(mGraphForm_DisplayRangeChanged);
-
             mJumpForm.SelectedEntryChanged += new EventHandler(mJumpForm_SelectedEntryChanged);
+            mDataForm.RowsDeleted += new EventHandler(mDataForm_RowsDeleted);
+            mDataForm.SelectRangeChanged += new EventHandler(mDataForm_SelectRangeChanged);
 
             // update once.
             UpdateTitleBar(null, EventArgs.Empty);
@@ -43,7 +44,26 @@ namespace FlySightViewer.Forms
             Settings.Instance.Load();
         }
 
-        void mJumpForm_SelectedEntryChanged(object sender, EventArgs e)
+        void mDataForm_SelectRangeChanged(object sender, EventArgs e)
+        {
+            mGraphForm.SelectRange = mDataForm.SelectRange;
+            mMapForm.DisplayRange = mDataForm.SelectRange;
+        }
+
+        private void mDataForm_RowsDeleted(object sender, EventArgs e)
+        {
+            // mark project as dirty.
+            Project.Dirty = true;
+
+            // force  recalculation of  graph and map.
+            mGraphForm.SelectedEntry = null;
+            mMapForm.SelectedEntry = null;
+
+            mGraphForm.SelectedEntry = mJumpForm.SelectedEntry;
+            mMapForm.SelectedEntry = mJumpForm.SelectedEntry;
+        }
+
+        private void mJumpForm_SelectedEntryChanged(object sender, EventArgs e)
         {
             mDataForm.SelectedEntry = mJumpForm.SelectedEntry;
             mGraphForm.SelectedEntry = mJumpForm.SelectedEntry;
@@ -52,7 +72,8 @@ namespace FlySightViewer.Forms
 
         private void mGraphForm_DisplayRangeChanged(object sender, EventArgs e)
         {
-            mMapForm.DisplayRange = mGraphForm.DisplayRange;
+            mMapForm.DisplayRange = mGraphForm.SelectRange;
+            mDataForm.SelectRange = mGraphForm.SelectRange;
         }
 
         private void UpdateTitleBar(object sender, EventArgs e)

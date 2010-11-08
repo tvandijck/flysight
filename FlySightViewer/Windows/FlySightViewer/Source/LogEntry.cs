@@ -86,6 +86,18 @@ namespace FlySightViewer
             get { return mRecords; }
         }
 
+        public TimeSpan Duration
+        {
+            get
+            {
+                if (mRecords.Count > 0)
+                {
+                    return mRecords[mRecords.Count - 1].Time - mRecords[0].Time;
+                }
+                return TimeSpan.Zero;
+            }
+        }
+
         public void Write(BinaryWriter aWriter)
         {
             aWriter.Write((byte)1);

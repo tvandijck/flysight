@@ -16,21 +16,15 @@ namespace FlySightViewer.Forms
             mGraphMode.SelectedIndex = 1;
         }
 
-        public Range DisplayRange
+        private Range mRange;
+        public Range SelectRange
         {
-            get { return mGraph.DisplayRange; }
+            get { return mRange; }
             set
             {
-                if (value != mGraph.DisplayRange)
+                if (value != mRange)
                 {
-                    if (value.Width > 10)
-                    {
-                        mGraph.DisplayRange = value;
-                    }
-                    else
-                    {
-                        mGraph.DisplayRange = Range.Invalid;
-                    }
+                    mRange = value;
 
                     if (DisplayRangeChanged != null)
                     {
@@ -42,16 +36,7 @@ namespace FlySightViewer.Forms
 
         public LogEntry SelectedEntry
         {
-            set
-            {
-                mAltitudeGraph.LogEntry = value;
-                mGraph.LogEntry = value;                
-            }
-        }
-
-        private void OnRangeSelectChanged(object sender, EventArgs e)
-        {
-            DisplayRange = mAltitudeGraph.SelectRange;
+            set { mGraph.LogEntry = value; }
         }
 
         private void OnModeSelected(object sender, EventArgs e)

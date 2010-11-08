@@ -35,7 +35,7 @@ namespace FlySightViewer
         public static bool Dirty
         {
             get { return mProjectDirty; }
-            private set
+            set
             {
                 if (mProjectDirty != value)
                 {

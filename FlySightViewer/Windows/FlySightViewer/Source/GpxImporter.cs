@@ -61,11 +61,51 @@ namespace FlySightViewer
                             }
                         }
 
+                        CalculateMissingData(entry);
                         aCallback(key, entry);
                         idx++;
                     }
                 }
             }
+        }
+
+        public static void CalculateMissingData(LogEntry aEntry)
+        {
+            int num = aEntry.Records.Count;
+            for (int i = 1; i < num; i++)
+            {
+                Record a = aEntry.Records[i];
+                Record b = aEntry.Records[i - 1];
+
+                // calculate differences.
+                double timeDiff = (a.Time - b.Time).TotalSeconds;
+                double altitudeDiff = a.Altitude - b.Altitude;
+                double latDiff = DistanceInMeters(a.Location.Lat, b.Location.Lat);
+                double lngDiff = DistanceInMeters(a.Location.Lng, b.Location.Lng);
+
+                // calculate velocities.
+                a.VelocityDown = (float)(-altitudeDiff / timeDiff);
+                a.VelocityNorth = (float)(latDiff / timeDiff);
+                a.VelocityEast = (float)(-lngDiff / timeDiff);
+
+                // store result.
+                aEntry.Records[i] = a;
+            }
+        }
+
+        public static double DistanceInMeters(double aLat1, double aLat2)
+        {
+            double R = 6371000.0f; // radius of earth in meters.
+            double dLat = DegToRad(aLat2 - aLat1);
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            double d = R * c;
+            return (dLat > 0) ? d : -d;
+        }
+
+        public static double DegToRad(double aAngle)
+        {
+            return (aAngle * Math.PI) / 180.0f;
         }
     }
 }

@@ -40,8 +40,18 @@ namespace FlySightViewer.Controls
             {
                 if (mShowRange != value)
                 {
-                    mShowRange = value;
-                    mSelectedPoints = new Point[mShowRange.Width];
+                    if (value.Width > 10)
+                    {
+                        mShowRange.Min = Math.Max(0, value.Min);
+                        mShowRange.Max = Math.Min(mPoints.Length, value.Max);
+                        mSelectedPoints = new Point[mShowRange.Width];
+                    }
+                    else
+                    {
+                        mShowRange = Range.Invalid;
+                        mSelectedPoints = null;
+                    }
+
                     Invalidate();
                 }
             }
