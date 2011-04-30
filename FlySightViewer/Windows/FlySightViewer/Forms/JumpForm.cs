@@ -2,18 +2,53 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using FlySightViewer.WinFormsUI.Docking;
+using System.Collections;
+using System.Globalization;
 
 namespace FlySightViewer.Forms
 {
     public partial class JumpForm : DockContent
     {
         private LogEntry mSelectedEntry;
-
         public event EventHandler SelectedEntryChanged;
+
+        #region -- Sort on date, instead of alphabetically --------------------
+
+        private class DateSorter : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                TreeNode node1 = x as TreeNode;
+                TreeNode node2 = y as TreeNode;
+
+                try
+                {
+                    int year1, year2;
+                    if (int.TryParse(node1.Name, out year1))
+                    {
+                        if (int.TryParse(node2.Name, out year2))
+                        {
+                            return year1.CompareTo(year2);
+                        }
+                    }
+
+                    DateTime date1 = DateTime.Parse(node1.Name);
+                    DateTime date2 = DateTime.Parse(node2.Name);
+                    return date1.CompareTo(date2);
+                }
+                catch (Exception)
+                {
+                    return node1.Name.CompareTo(node2.Name);
+                }
+            }
+        }
+
+        #endregion
 
         public JumpForm()
         {
             InitializeComponent();
+            mJumpTree.TreeViewNodeSorter = new DateSorter();
             Project.ProjectEntriesChanged += new EventHandler(Project_ProjectEntriesChanged);
         }
 

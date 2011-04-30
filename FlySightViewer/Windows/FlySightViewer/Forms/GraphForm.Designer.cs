@@ -76,6 +76,7 @@
             this.mGraph.BackColor = System.Drawing.Color.Transparent;
             this.mGraph.Location = new System.Drawing.Point(0, 30);
             this.mGraph.LogEntry = null;
+            this.mGraph.MinimumSize = new System.Drawing.Size(40, 30);
             this.mGraph.Mode = FlySightViewer.Controls.Graph.DisplayMode.Altitude;
             this.mGraph.Name = "mGraph";
             this.mGraph.Size = new System.Drawing.Size(629, 368);
@@ -93,6 +94,7 @@
             this.Controls.Add(this.mGraph);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HideOnClose = true;
+            this.MinimumSize = new System.Drawing.Size(40, 30);
             this.Name = "GraphForm";
             this.Text = "Graphs";
             this.ResumeLayout(false);

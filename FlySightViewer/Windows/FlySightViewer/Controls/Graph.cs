@@ -500,10 +500,10 @@ namespace FlySightViewer.Controls
         private void UpdateZoomStep()
         {
             float dx = (mMaxZoomValueX - mMinZoomValueX) / mGraphRect.Width;
-            mZoomStepX = ((int)(dx * 5000)) / 100.0f;
+            mZoomStepX = Math.Max(0.1f, ((int)(dx * 5000)) / 100.0f);
 
             int log = (int)Math.Log10((mMaxZoomValueY - mMinZoomValueY) * 0.5f);
-            mZoomStepY = (float)Math.Pow(10, log);
+            mZoomStepY = Math.Max(0.1f, (float)Math.Pow(10, log));
         }
 
         private static float Clamp(float aValue, float aMin, float aMax)
@@ -652,10 +652,10 @@ namespace FlySightViewer.Controls
             // rezoom on the selected area.
             int minI = GetIndexAt(mMinZoomValueX);
             int maxI = GetIndexAt(mMaxZoomValueX);
-            
+
             minValue = float.MaxValue;
             maxValue = float.MinValue;
-            for (int i=minI; i<maxI; ++i)
+            for (int i = minI; i < maxI; ++i)
             {
                 minValue = Math.Min(minValue, mValues[i].Y);
                 maxValue = Math.Max(maxValue, mValues[i].Y);
